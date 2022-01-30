@@ -1,0 +1,303 @@
+swagger: "2.0"
+info:
+    version: 0.0.1
+    title: 'Receipt Traveler Backend API Service'
+host: "API_HOST"
+basePath: /
+
+x-google-endpoints:
+ - name: "API_HOST"
+   allowCors: "true"
+   
+#API_HOST
+#prod - receipts-backend-dot-sanm-gcp-receiving.appspot.com
+# uat- receipts-backend-dot-sanm-gcp-receiving-uat.appspot.com
+# dev- receipts-backend-dot-sanm-gcp-receiving-dev.appspot.com
+x-google-allow: "all"
+
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+
+
+          
+  /project_details/setData:
+    post:
+      summary: "Add a new project"
+      
+      operationId: "addProject"
+    
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/addproject"
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+
+  /project_details/updateData:
+    put:
+      summary: "Update project from the table"
+      operationId: "updateReadRedFlagData"     
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/updateProject"
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+
+
+         
+  /project_details/getAuditData:
+    post:
+      summary: "Fetch data from projectAuditTrail"
+      operationId: "projectAuditTrail"
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/getData"  
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"  
+
+  
+  /project_status/getdata:
+    post:
+      summary: "Fetch data from projectstatus"
+      operationId: "readprojectstatus"
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/getData"  
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"   
+          
+  /plant/getdata:
+    post:
+      summary: "Fetch data from plant"
+      operationId: "plantdata"
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/getData"  
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+          
+  /project_type/getData:
+    post:
+      summary: "Fetch project type from the table"
+      operationId: "getproject Type"
+      parameters:
+       - name: status
+         in: query
+         type: string
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+          
+  /project_details/projectDashboard:
+    post:
+      summary: "Fetch data from projectDetails"
+      operationId: "projectDashboard"
+      parameters:
+      - in: "body"
+        name: "body"
+      
+        required: true
+        schema:
+          $ref: "#/definitions/getData"
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+        
+  /project_details/getdata:
+    get:
+      summary: "Fetch project detail from the table"
+      operationId: "get projectdetails "
+      parameters:
+       - name: projectId
+         in: query
+         type: string
+      responses:
+        200:
+          description: "Success"
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Not Found"
+        500:
+          description: "Unexpected Error"
+         
+
+        
+                
+definitions:
+  updateProject:
+    type: "object"
+    properties:
+      project_name:
+        type: "string"
+      description:
+        type: "string"
+      actual_closed_date:
+        type: "integer"
+        format: "int64"
+         
+  addproject:
+    type: "object"
+    properties:
+      project_name:
+        type: "string"
+      plant_id:
+        type: "integer"
+        format: "int64"
+      project_status:
+        type: "integer"
+        format: "int64"
+      project_type:
+        type: "integer"
+        format: "int64"
+      description:
+        type: "string"
+      actual_closed_date:
+        type: "string"
+       
+  getData:
+    type: object
+    properties:
+      pageNumber:
+        type: string
+      pageSize:
+        type: string
+       
+      filters:
+        type: array
+        items:
+          $ref: '#/definitions/filterModel'
+      orderBy:
+            type: string
+            
+
+  filterModel:
+    type: object
+    properties:
+      columnName:
+        type: string
+      condition:
+        type: string
+      value1:
+        type: string
+      value2:
+        type: string
+      dataType:
+        type: string
+     
+
+securityDefinitions:
+  secureauth:
+    type: oauth2
+    authorizationUrl: ""
+    flow: "implicit"
+    x-google-issuer: "SECUREAUTH_ISSUER"
+    x-google-jwks_uri: "SECUREAUTH_ISSUER/.well-known/jwks.json"
+    x-google-audiences: CLIENT_ID
+
+
+security:
+  - secureauth: []

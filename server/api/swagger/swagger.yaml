@@ -1,0 +1,71 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "VAF"
+# during dev, should point to your local machine
+#host: localhost:8080
+host: "" 
+# basePath prefixes all resource paths 
+basePath: "/"
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - "https"
+# format of bodies a client can send (Content-Type)
+consumes:
+  - "application/json"
+# format of the responses to the client (Accepts)
+produces:
+  - "application/json"
+paths:
+              
+  /demand/search:
+    post:
+      summary: "Searching Sales Orders"
+      description: "To search sales orders"
+      operationId: ""
+      parameters:
+        - in: "body"
+          name: "saleorders"
+          description: "Sales Order to fetch"
+          required: true
+          schema:
+            $ref: "#/definitions/"
+           
+      responses:
+        "200":
+          description: "displays searched results"
+        "204":
+          description: "no data to display"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Authorization information is missing or invalid"
+        "404":
+          description: "Not found"
+        "500":
+          description: "Unexpected error"
+
+  /swagger:
+      x-swagger-pipe: "swagger_raw"
+    
+# complex objects have schema definitions
+definitions:
+  DemandSearch:
+    properties:
+      filters: 
+        type: "string"
+      pageNumber:
+       type: "string"
+      pageSize: 
+       type: "string"
+      orderBy: 
+       type: "string"
+      orgCode: 
+       type: "string"
+    example: 
+      filters: [{"columnName":"item_Number","condition":"cn","value1":""}]
+      pageNumber: "1"
+      pageSize: "10"
+      orderBy : "item_number desc"
+      orgCode : ""

@@ -1,0 +1,11 @@
+/node_modules
+/.vscode
+
+config/runtime.yaml
+/.vscode
+/api/security/ssl/client-cert.pem
+/api/security/ssl/client-key.pem
+/api/security/ssl/dbeaver-key.pk8
+/api/security/ssl/server-ca.pem
+/api/security/ssl
+/service-account-key.json

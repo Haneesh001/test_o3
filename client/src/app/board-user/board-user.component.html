@@ -1,0 +1,90 @@
+<div class="col-md-12">
+  <h2>Add Contact</h2>
+  <!-- <div class="card card-container"> -->
+    <!-- <img
+      id="profile-img"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="profile-img-card"
+    /> -->
+    <form
+      
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label for="contacts_name">Contact  Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="contacts_name"
+          [(ngModel)]="form.contacts_name"
+          required
+          minlength="3"
+          maxlength="20"
+          #contacts_name="ngModel"
+        />
+        <div class="alert-danger" *ngIf="contacts_name.errors && f.submitted">
+          <div *ngIf="contacts_name.errors.required">Contact Name is required</div>
+          <div *ngIf="contacts_name.errors.minlength">
+            Contact Name must be at least 3 characters
+          </div>
+          <div *ngIf="contacts_name.errors.maxlength">
+            Contact Namemust be at most 20 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contacts_email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.contacts_email"
+          required
+          email
+          #contacts_email="ngModel"
+        />
+        <div class="alert-danger" *ngIf="contacts_email.errors && f.submitted">
+          <div *ngIf="contacts_email.errors.required">Email is required</div>
+          <div *ngIf="contacts_email.errors.email">
+            Email must be a valid email address
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contacts_number">Mobile Number</label>
+        <input
+          type="text"
+          class="form-control"
+          name="contacts_number"
+          [(ngModel)]="form.contacts_number"
+          required
+          minlength="10"
+          #contacts_number="ngModel"
+        />
+        <div class="alert-danger" *ngIf="contacts_number.errors && f.submitted">
+          <div *ngIf="contacts_number.errors.required">Mobile Number is required</div>
+          <div *ngIf="contacts_number.errors.minlength">
+            Mobile Number must be at least 10 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div>
+     
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Failed To create Contact!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Contact is Successfully Created!
+    </div>
+  <!-- </div> -->
+</div>
+<button (click)="back()" class="btn btn-primary btn-block">Back</button>
+<!-- <button (click)="reset()" class="btn btn-primary btn-block">Reset</button> -->

@@ -1,0 +1,29 @@
+<button type="button" (click)="gotoCustomer()">Add Contact</button>
+<div class="container">
+  <h2>Contact List</h2>
+             
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mobile Number</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="content?.length">
+      <ng-container
+          *ngFor="let item of content ">
+          <!-- <tr> -->
+          <tr class="cursor">
+              <!-- <td>1</td> -->
+              <td>{{item?.contacts_name}}</td>
+              <td>{{item?.contacts_email}}</td>
+              <td>{{item?.contacts_number}}</td>
+              <td><button type="button" (click)="deleteCustomer(item)">Delete Contact</button></td>
+          </tr>
+
+      </ng-container>
+  </tbody>
+  </table>
+</div>
